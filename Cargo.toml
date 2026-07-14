@@ -30,3 +30,28 @@ serde_json = { version = "1.0" }
 serde_yaml = { version = "0.9" }
 thiserror = { version = "2.0" }
 toml = { version = "0.9" }
+
+[package.metadata.deb]
+maintainer = "Jesper Pedersen <jesperpedersen.db@gmail.com>"
+copyright = "2026 pgopr developers"
+license-file = ["LICENSE", "0"]
+depends = "libc6"
+section = "database"
+priority = "optional"
+assets = [
+    ["target/release/pgopr", "usr/bin/pgopr", "755"],
+    ["README.md", "usr/share/doc/pgopr/README.md", "644"],
+    ["LICENSE", "usr/share/doc/pgopr/LICENSE", "644"],
+]
+
+[package.metadata.generate-rpm]
+assets = [
+    { source = "target/release/pgopr", dest = "/usr/bin/pgopr", mode = "0755" },
+    { source = "README.md", dest = "/usr/share/doc/pgopr/README.md", mode = "0644" },
+    { source = "LICENSE", dest = "/usr/share/doc/pgopr/LICENSE", mode = "0644" }
+]
+auto-req = "no"
+
+[profile.release]
+strip = true
+
